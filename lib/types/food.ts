@@ -6,4 +6,6 @@ export interface FoodRecommendation {
   foodName: string;
   rating: number;
   reason?: string;
+  imageUrl?: string;
+  mapsUrl?: string;
 }
