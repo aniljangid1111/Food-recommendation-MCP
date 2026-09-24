@@ -1,0 +1,47 @@
+[
+    {
+        "city": "Jodhpur",
+        "area": "Sardarpura",
+        "shopName": "Janta Sweet Home",
+        "category": "Bakery",
+        "foodName": "Chocolate Pastry",
+        "rating": 5,
+        "reason": "Fresh aur tasty pastry"
+    },
+    {
+        "city": "Jodhpur",
+        "area": "Sardarpura",
+        "shopName": "Janta Sweet Home",
+        "category": "Sweets",
+        "foodName": "Mawa Kachori",
+        "rating": 4.8,
+        "reason": "Fresh aur authentic taste"
+    },
+    {
+        "city": "Jodhpur",
+        "area": "Ratanada",
+        "shopName": "ABC Cafe",
+        "category": "Cafe",
+        "foodName": "Cold Coffee",
+        "rating": 4.5,
+        "reason": "Thick aur tasty cold coffee"
+    },
+    {
+        "city": "Jodhpur",
+        "area": "Paota",
+        "shopName": "XYZ Restaurant",
+        "category": "Rajasthani",
+        "foodName": "Dal Baati Churma",
+        "rating": 4.9,
+        "reason": "Authentic Rajasthani taste"
+    },
+    {
+        "city": "Jodhpur",
+        "area": "Sardarpura",
+        "shopName": "Food Corner",
+        "category": "Street Food",
+        "foodName": "Paneer Tikka",
+        "rating": 4.6,
+        "reason": "Spicy aur well cooked"
+    }
+]
