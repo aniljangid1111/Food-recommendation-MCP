@@ -1,73 +1,71 @@
 import { FoodRecommendation } from "@/lib/types/food";
 import { getFoodFromSheet } from "@/lib/google/sheets.service";
 
-export async function searchFood({
-    city,
-    area,
-    category,
-    foodName,
-}: {
-    city: string;
+export interface SearchFoodInput {
+    city?: string;
     area?: string;
     category?: string;
     foodName?: string;
-}): Promise<FoodRecommendation[]> {
+    limit?: number;
+}
+
+function normalize(value: string): string {
+    return value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/\b(vada|vadaa|vado)\b/g, "bada")
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim()
+        .replace(/\s+/g, " ");
+}
+
+export async function searchFood({
+    city = "Jodhpur",
+    area,
+    category,
+    foodName,
+    limit = 10,
+}: SearchFoodInput): Promise<FoodRecommendation[]> {
     const foods = await getFoodFromSheet();
+
+    const normalizedCity = normalize(city);
+    const normalizedArea = area ? normalize(area) : "";
+    const normalizedCategory = category ? normalize(category) : "";
+    const normalizedFoodName = foodName ? normalize(foodName) : "";
 
     return foods
         .filter((food) => {
-            const cityMatch =
-                food.city.toLowerCase() === city.toLowerCase();
-
-            const areaMatch = area
-                ? food.area.toLowerCase() === area.toLowerCase()
-                : true;
-
-            const categoryMatch = category
-                ? food.category.toLowerCase() === category.toLowerCase()
-                : true;
-
-            const foodNameMatch = foodName
-                ? food.foodName
-                    .toLowerCase()
-                    .includes(foodName.toLowerCase())
-                : true;
-
             return (
-                cityMatch &&
-                areaMatch &&
-                categoryMatch &&
-                foodNameMatch
+                normalize(food.city) === normalizedCity &&
+                (!normalizedArea || normalize(food.area).includes(normalizedArea)) &&
+                (!normalizedCategory ||
+                    normalize(food.category).includes(normalizedCategory)) &&
+                (!normalizedFoodName ||
+                    normalize(food.foodName).includes(normalizedFoodName) ||
+                    normalizedFoodName.includes(normalize(food.foodName)))
             );
-        })
-        .sort((a, b) => b.rating - a.rating);
-}
-
-export async function getTopFoods(
-    city: string,
-    category?: string,
-    limit: number = 5
-): Promise<FoodRecommendation[]> {
-    const foods = await getFoodFromSheet();
-
-    console.log("FOODS FROM SHEET:", foods);
-    console.log("SEARCH INPUT:", { city, category, limit });
-
-    const results = foods
-        .filter((food) => {
-            const cityMatch =
-                food.city.toLowerCase() === city.toLowerCase();
-
-            const categoryMatch = category
-                ? food.category.toLowerCase() === category.toLowerCase()
-                : true;
-
-            return cityMatch && categoryMatch;
         })
         .sort((a, b) => b.rating - a.rating)
         .slice(0, limit);
+}
 
-    console.log("TOP FOOD RESULTS:", results);
+export async function getTopFoods(
+    city = "Jodhpur",
+    category?: string,
+    limit = 5
+): Promise<FoodRecommendation[]> {
+    const foods = await getFoodFromSheet();
+    const normalizedCity = normalize(city);
+    const normalizedCategory = category ? normalize(category) : "";
 
-    return results;
+    return foods
+        .filter(
+            (food) =>
+                normalize(food.city) === normalizedCity &&
+                (!normalizedCategory ||
+                    normalize(food.category).includes(normalizedCategory))
+        )
+        .sort((a, b) => b.rating - a.rating)
+        .slice(0, limit);
 }
