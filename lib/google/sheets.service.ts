@@ -3,17 +3,6 @@ import { parse } from "csv-parse/sync";
 import { FoodRecommendation } from "@/lib/types/food";
 import { getDriveImageUrl } from "@/lib/utils/image";
 
-interface SheetRow {
-    City?: string;
-    "Area / Locality"?: string;
-    "Shop / Restaurant Name"?: string;
-    "Food Category"?: string;
-    "Best Food / Dish"?: string;
-    Rating?: string;
-    "Why do you recommend it?"?: string;
-    "Food Image"?: string;
-}
-
 const CACHE_DURATION_MS = 60_000;
 
 let cachedFoods: FoodRecommendation[] | null = null;
