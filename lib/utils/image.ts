@@ -1,15 +1,31 @@
 export function getDriveImageUrl(url: string): string {
-  if (!url) {
+  const input = url.trim().replace(/^["']|["']$/g, "");
+
+  if (!input) {
     return "";
   }
 
-  const match = url.match(/id=([^&]+)/);
+  try {
+    const parsedUrl = new URL(input);
 
-  if (!match) {
-    return url;
+    if (
+      parsedUrl.hostname === "drive.google.com" ||
+      parsedUrl.hostname === "docs.google.com"
+    ) {
+      const fileIdFromQuery = parsedUrl.searchParams.get("id");
+      const fileIdFromPath =
+        parsedUrl.pathname.match(/\/file\/d\/([^/]+)/)?.[1] ||
+        parsedUrl.pathname.match(/\/d\/([^/]+)/)?.[1];
+
+      const fileId = fileIdFromQuery || fileIdFromPath;
+
+      if (fileId) {
+        return `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileId)}&sz=w1000`;
+      }
+    }
+  } catch {
+    return input;
   }
 
-  const fileId = match[1];
-
-  return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+  return input;
 }

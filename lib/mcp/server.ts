@@ -211,7 +211,10 @@ export function createMcpServer() {
           _meta: {
             ui: {
               csp: {
-                resourceDomains: ["https://drive.google.com"],
+                resourceDomains: [
+                  "https://drive.google.com",
+                  "https://lh3.googleusercontent.com",
+                ],
               },
             },
           },

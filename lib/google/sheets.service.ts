@@ -24,6 +24,24 @@ function valueOrEmpty(value: string | undefined): string {
     return value?.trim() ?? "";
 }
 
+function extractFoodImage(row: Record<string, string | undefined>): string {
+    for (const [key, val] of Object.entries(row)) {
+        if (/image/i.test(key) && val?.trim()) {
+            return val.trim();
+        }
+    }
+    return "";
+}
+
+function extractMapsUrl(row: Record<string, string | undefined>, defaultUrl: string): string {
+    for (const [key, val] of Object.entries(row)) {
+        if (/maps|location/i.test(key) && val?.trim()) {
+            return val.trim();
+        }
+    }
+    return defaultUrl;
+}
+
 async function fetchFoodFromSheet(): Promise<FoodRecommendation[]> {
     // Ensure your URL has the correct gid for Form responses 4
     const url = process.env.FOOD_SHEET_CSV_URL;
@@ -38,10 +56,17 @@ async function fetchFoodFromSheet(): Promise<FoodRecommendation[]> {
     });
 
     const rows = parse(response.data, {
-        columns: true,
+        columns: (header: string[]) => {
+            const counts: Record<string, number> = {};
+            return header.map((h) => {
+                const trimmed = h.trim();
+                counts[trimmed] = (counts[trimmed] || 0) + 1;
+                return counts[trimmed] > 1 ? `${trimmed}_${counts[trimmed]}` : trimmed;
+            });
+        },
         skip_empty_lines: true,
         trim: true,
-    }) as SheetRow[];
+    }) as Record<string, string>[];
 
     return rows.flatMap((row) => {
         const city = valueOrEmpty(row.City);
@@ -64,6 +89,12 @@ async function fetchFoodFromSheet(): Promise<FoodRecommendation[]> {
             return [];
         }
 
+        const defaultMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+            `${shopName} ${area} ${city}`
+        )}`;
+
+        const rawImageUrl = extractFoodImage(row);
+
         return [
             {
                 city,
@@ -73,10 +104,8 @@ async function fetchFoodFromSheet(): Promise<FoodRecommendation[]> {
                 foodName,
                 rating,
                 reason: valueOrEmpty(row["Why do you recommend it?"]),
-                imageUrl: getDriveImageUrl(valueOrEmpty(row["Food Image"])),
-                mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                    `${shopName} ${area} ${city}`
-                )}`,
+                imageUrl: getDriveImageUrl(rawImageUrl),
+                mapsUrl: extractMapsUrl(row, defaultMapsUrl),
             },
         ];
     });
