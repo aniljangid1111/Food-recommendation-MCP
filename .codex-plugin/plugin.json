@@ -1,0 +1,31 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "food_recommendations",
+  "version": "1.0.0",
+  "description": "Find top food and restaurant recommendations with interactive cards and Google Maps directions.",
+  "author": {
+    "name": "Food Recommendation Guide"
+  },
+  "mcpServers": "./mcp.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Food Recommendations",
+        "shortDescription": "Find Best Food & Dishes",
+        "longDescription": "Explore authentic food, street food, and top restaurants in Jodhpur. Get ratings, recommendations, photos, and direct Google Maps directions.",
+        "developerName": "Shapebytes",
+        "category": "Food & Drink",
+        "capabilities": [
+          "Interactive"
+        ],
+        "defaultPrompt": "Find top food recommendations in Jodhpur",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png",
+        "websiteURL": "https://food-recommendation-mcp.vercel.app",
+        "supportURL": "https://food-recommendation-mcp.vercel.app/support",
+        "privacyPolicyURL": "https://food-recommendation-mcp.vercel.app/privacy",
+        "termsOfServiceURL": "https://food-recommendation-mcp.vercel.app/terms"
+      }
+    }
+  }
+}

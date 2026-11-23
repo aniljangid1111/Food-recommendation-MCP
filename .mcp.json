@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "food_recommendations": {
+      "type": "http",
+      "url": "https://food-recommendation-mcp.vercel.app/mcp"
+    }
+  }
+}

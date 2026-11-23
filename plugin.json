@@ -21,7 +21,10 @@
         "defaultPrompt": "Find top food recommendations in Jodhpur",
         "composerIcon": "./assets/icon.png",
         "logo": "./assets/logo.png",
-        "websiteURL": "https://food-recommendation-mcp.vercel.app"
+        "websiteURL": "https://food-recommendation-mcp.vercel.app",
+        "supportURL": "https://food-recommendation-mcp.vercel.app/support",
+        "privacyPolicyURL": "https://food-recommendation-mcp.vercel.app/privacy",
+        "termsOfServiceURL": "https://food-recommendation-mcp.vercel.app/terms"
       }
     }
   }

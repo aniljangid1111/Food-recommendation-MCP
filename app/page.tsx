@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 const MCP_ENDPOINT = "https://food-recommendation-mcp.vercel.app/mcp";
 
@@ -45,7 +46,7 @@ export default function Home() {
 
       <section className="relative mx-auto flex min-h-screen w-full max-w-[1440px] flex-col px-5 py-5 sm:px-8 sm:py-7 lg:px-12">
         <header className="flex items-center justify-between border-b border-white/10 pb-5">
-          <a href="#home" className="flex items-center gap-3" aria-label="Jodhpur Food MCP home">
+          <Link href="/" className="flex items-center gap-3" aria-label="Jodhpur Food MCP home">
             <span className="grid h-10 w-10 place-items-center rounded-xl border border-[#e2a36f]/30 bg-[#d57943]/10 text-[#f2bd91]">
               <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
                 <path d="M4 12h16M6.5 8.5h11M8 5h8M6.5 15.5h11M8 19h8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
@@ -55,14 +56,22 @@ export default function Home() {
               <span className="block text-sm font-semibold tracking-wide">JODHPUR FOOD</span>
               <span className="block text-[10px] tracking-[0.24em] text-white/45">RECOMMENDATION MCP</span>
             </span>
-          </a>
+          </Link>
 
-          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-white/65">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-40" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            MCP server
+          <div className="flex items-center gap-3 sm:gap-5">
+            <nav className="flex items-center gap-3 sm:gap-4 text-xs font-medium text-white/60">
+              <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+              <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+              <Link href="/support" className="hover:text-white transition-colors">Support</Link>
+            </nav>
+
+            <div className="hidden xs:flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-white/65">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-40" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              </span>
+              MCP server
+            </div>
           </div>
         </header>
 
@@ -148,9 +157,18 @@ export default function Home() {
           </div>
         </div>
 
-        <footer className="flex flex-col gap-2 border-t border-white/10 py-4 text-[10px] tracking-[0.12em] text-white/35 sm:flex-row sm:items-center sm:justify-between">
-          <span>JODHPUR FOOD RECOMMENDATION MCP</span>
-          <span>SEARCH LOCAL · EAT WELL</span>
+        <footer className="flex flex-col gap-3 border-t border-white/10 py-5 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-semibold text-white/60">JODHPUR FOOD RECOMMENDATION MCP</span>
+            <span>&bull;</span>
+            <span>SEARCH LOCAL · EAT WELL</span>
+          </div>
+
+          <div className="flex items-center gap-4 text-xs font-medium text-white/60">
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/support" className="hover:text-white transition-colors">Support &amp; Contact</Link>
+          </div>
         </footer>
       </section>
     </main>
