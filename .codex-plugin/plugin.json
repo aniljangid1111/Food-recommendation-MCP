@@ -1,30 +1,102 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "food_recommendations",
+  "name": "jodhpur-food-recommendation",
   "version": "1.0.0",
   "description": "Find top food and restaurant recommendations with interactive cards and Google Maps directions.",
   "author": {
-    "name": "Food Recommendation Guide"
+    "name": "Shapebytes",
+    "url": "https://food-recommendation-mcp.vercel.app"
   },
   "mcpServers": "./mcp.json",
   "extensions": {
     "com.openai": {
       "interface": {
-        "displayName": "Food Recommendations",
+        "displayName": "Jodhpur Food Recommendations",
         "shortDescription": "Find Best Food & Dishes",
         "longDescription": "Explore authentic food, street food, and top restaurants in Jodhpur. Get ratings, recommendations, photos, and direct Google Maps directions.",
         "developerName": "Shapebytes",
-        "category": "Food & Drink",
+        "category": "Travel",
         "capabilities": [
           "Interactive"
         ],
         "defaultPrompt": "Find top food recommendations in Jodhpur",
         "composerIcon": "./assets/icon.png",
         "logo": "./assets/logo.png",
+        "videoURL": "https://www.loom.com/share/38d06c65c7864d27a6770fd8988c4519",
         "websiteURL": "https://food-recommendation-mcp.vercel.app",
         "supportURL": "https://food-recommendation-mcp.vercel.app/support",
         "privacyPolicyURL": "https://food-recommendation-mcp.vercel.app/privacy",
         "termsOfServiceURL": "https://food-recommendation-mcp.vercel.app/terms"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Search for specific iconic food dish in Jodhpur",
+              "prompt": "Where can I get the best Mawa Kachori in Jodhpur?",
+              "tools_triggered": [
+                "search_food"
+              ],
+              "expected_behavior": "Triggers search_food with foodName 'Mawa Kachori' and city 'Jodhpur', returning relevant sweet shops like Janta Sweet Home with ratings, photos, and recommendations."
+            },
+            {
+              "description": "Get top-rated food recommendations in Jodhpur",
+              "prompt": "Show me the top rated foods and restaurants in Jodhpur.",
+              "tools_triggered": [
+                "get_top_foods"
+              ],
+              "expected_behavior": "Triggers get_top_foods for city 'Jodhpur', returning the highest-rated dishes and culinary spots like Dal Baati Churma and Mawa Kachori with ratings and details."
+            },
+            {
+              "description": "Search food by specific area or locality in Jodhpur",
+              "prompt": "What are some good food places to eat in Sardarpura, Jodhpur?",
+              "tools_triggered": [
+                "search_food"
+              ],
+              "expected_behavior": "Triggers search_food with area 'Sardarpura' and city 'Jodhpur', returning restaurants, bakeries, and sweet shops located in Sardarpura."
+            },
+            {
+              "description": "Filter top foods by category such as Street Food",
+              "prompt": "What is the best street food in Jodhpur?",
+              "tools_triggered": [
+                "get_top_foods"
+              ],
+              "expected_behavior": "Triggers get_top_foods with category 'Street Food' and city 'Jodhpur', returning famous street food items and stalls."
+            },
+            {
+              "description": "Search food by dish and cuisine category",
+              "prompt": "Find authentic Rajasthani Dal Baati Churma restaurants in Jodhpur.",
+              "tools_triggered": [
+                "search_food"
+              ],
+              "expected_behavior": "Triggers search_food with category 'Rajasthani' and foodName 'Dal Baati Churma', returning authentic Rajasthani dining recommendations."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Out-of-scope flight ticket booking request",
+              "prompt": "Book a flight ticket from Delhi to Jodhpur for tomorrow morning.",
+              "tools_triggered": [],
+              "expected_behavior": "Does not trigger any food MCP tools. Safely clarifies that this plugin only provides food and restaurant recommendations in Jodhpur and cannot book travel tickets."
+            },
+            {
+              "description": "Out-of-scope programming and code debugging query",
+              "prompt": "Write a Python script to scrape LinkedIn profiles using BeautifulSoup.",
+              "tools_triggered": [],
+              "expected_behavior": "Does not trigger any food MCP tools. Safely informs the user or provides coding help without invoking food recommendation tools."
+            },
+            {
+              "description": "Out-of-scope weather forecast inquiry",
+              "prompt": "What is the weather forecast and expected rainfall in Jodhpur next week?",
+              "tools_triggered": [],
+              "expected_behavior": "Does not trigger any food MCP tools. Safely states that weather forecasting is outside the scope of food and dining recommendations."
+            }
+          ]
+        },
+        "demo_recording_url": "https://www.loom.com/share/38d06c65c7864d27a6770fd8988c4519"
+      },
+      "publication": {
+        "release_notes": "Initial release of Food Recommendations MCP plugin for Jodhpur featuring search_food and get_top_foods tools with interactive food cards and Google Maps directions."
       }
     }
   }
