@@ -103,6 +103,12 @@ export function createFoodMcpServer() {
       description:
         "Search food and restaurants by city, dish, area, or category. Defaults to Jodhpur.",
       inputSchema: searchFoodSchema,
+      annotations: {
+        title: "Search Food",
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false,
+      },
       _meta: toolMeta,
     },
     async (input: SearchFoodInput) => {
@@ -134,6 +140,12 @@ export function createFoodMcpServer() {
       description:
         "Get the highest-rated food recommendations in a city. Defaults to Jodhpur.",
       inputSchema: topFoodsSchema,
+      annotations: {
+        title: "Get Top Foods",
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: false,
+      },
       _meta: toolMeta,
     },
     async (input: { city?: string; category?: string; limit?: number }) => {
